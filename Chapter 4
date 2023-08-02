@@ -1,0 +1,69 @@
+Q-1: Write a range function that takes two arguments, start and end, and returns an array containing all the numbers from start up to (and including) end.
+
+Next, write a sum function that takes an array of numbers and returns the sum of these numbers. Run the example program and see whether it does indeed return 55.
+
+As a bonus assignment, modify your range function to take an optional third argument that indicates the “step” value used when building the array. 
+Solution:
+const range = (lower, upper) =>{
+  let arr = [];
+  for(let i = lower; i <= upper; i++){
+    arr.push(i);
+  }
+  return arr;
+}
+
+const sum = (arr) => {
+  let total = 0;
+  for(let num of arr){
+    total += num;
+  }
+  return total;
+}
+
+const rangeWithStep = (lower, upper, step = 1) =>{
+  let arr = [];
+  for(let i = lower; (step > 0) ? i <= upper : i >= upper ; i = i + step){
+    arr.push(i);
+  }
+  return arr;
+}
+
+console.log(range(1, 10));
+// → [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+console.log(rangeWithStep(5, 2, -1));
+// → [5, 4, 3, 2]
+console.log(sum(range(1, 10)));
+// → 55
+
+Q-2: Arrays have a reverse method that changes the array by inverting the order in which its elements appear. For this exercise, write two functions, reverseArray and reverseArrayInPlace. The first, reverseArray, takes an array as argument and produces a new array that has the same elements in the inverse order. The second, reverseArrayInPlace, does what the reverse method does: it modifies the array given as argument by reversing its elements. Neither may use the standard reverse method.
+
+Thinking back to the notes about side effects and pure functions in the previous chapter, which variant do you expect to be useful in more situations? Which one runs faster?
+Solution: 
+const reverseArray = (arr) => {
+  let reversedArr = [];
+  for(let i = arr.length - 1; i >= 0; i--){
+    reversedArr.push(arr[i]);
+  }
+  return reversedArr;
+}
+
+const reverseArrayInPlace = (arr) =>{
+  let mid = Math.floor(arr.length / 2);
+  for(let i = 0; i < mid; i++){
+    let temp = arr[i];
+    arr[i] = arr[arr.length - i - 1];
+    arr[arr.length - i - 1] = temp;
+  }
+  return arr;
+}
+
+console.log(reverseArray(["A", "B", "C"]));
+// → ["C", "B", "A"];
+let arrayValue = [1, 2, 3, 4, 5];
+reverseArrayInPlace(arrayValue);
+console.log(arrayValue);
+// → [5, 4, 3, 2, 1]
+
+The first type is more useful since it is a pure function. But reverseArrayInPlace runs faster because it divides the array in 2 and runs half the time reverseArray runs. And it takes no extra space.
+
+Q-3: 

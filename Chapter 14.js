@@ -5,50 +5,90 @@
 
 //Solution
 
-// Sample data set of mountains
-const mountains = [
-    { name: "Mount Everest", height: 8848, place: "Nepal" },
-    { name: "K2", height: 8611, place: "Pakistan" },
-    { name: "Kangchenjunga", height: 8586, place: "Nepal" }
-];
+<h1>Mountains</h1>
 
-// Function to generate the table
-function generateTable(data) {
-    const table = document.createElement("table");
-    const headerRow = document.createElement("tr");
+<div id="mountains"></div>
 
-    // Extract column names from the first object
+<script>
+  const MOUNTAINS = [
+    {name: "Kilimanjaro", height: 5895, place: "Tanzania"},
+    {name: "Everest", height: 8848, place: "Nepal"},
+    {name: "Mount Fuji", height: 3776, place: "Japan"},
+    {name: "Vaalserberg", height: 323, place: "Netherlands"},
+    {name: "Denali", height: 6168, place: "United States"},
+    {name: "Popocatepetl", height: 5465, place: "Mexico"},
+    {name: "Mont Blanc", height: 4808, place: "Italy/France"}
+  ];
+
+  // Your code here
+
+  const generateTable = (data) =>{
+  const table = document.createElement("table");
+  const headerRow = document.createElement("tr");
     const columns = Object.keys(data[0]);
-
-    // Create header row
     columns.forEach(columnName => {
-        const th = document.createElement("th");
-        th.textContent = columnName;
-        headerRow.appendChild(th);
-    });
+      const tableHeader = document.createElement("th");
+      tableHeader.textContent = columnName;
+      headerRow.appendChild(tableHeader);
+      });
     table.appendChild(headerRow);
 
-    // Create rows with data
-    data.forEach(obj => {
-        const row = document.createElement("tr");
-        columns.forEach(columnName => {
-            const cell = document.createElement("td");
-            cell.textContent = obj[columnName];
-
-            // Right-align cells containing number values
-            if (typeof obj[columnName] === "number") {
-                cell.style.textAlign = "right";
-            }
-            row.appendChild(cell);
-        });
-        table.appendChild(row);
-    });
-
+    data.forEach(obj =>{
+      const newRow = document.createElement("tr");
+      const cellDetails = Object.values(obj);
+      cellDetails.forEach(cell =>{
+        const tableDetail = document.createElement("td");
+        tableDetail.textContent = cell;
+        if(typeof(cell) === "number"){
+          tableDetail.style.textAlign = "right";
+          }
+        newRow.appendChild(tableDetail);
+        })
+      table.appendChild(newRow);
+      })
+                                            
     return table;
-}
-
-// Get the element to append the table to
+  }
+  const generatedTable = generateTable(MOUNTAINS);
+  const mountians = document.getElementById("mountains");
+  mountains.appendChild(generatedTable);
+  
+</script>
 const mountainsElement = document.getElementById("mountains");
 
 // Generate and append the table
 mountainsElement.appendChild(generateTable(mountains));
+
+/*Q-2: The document.getElementsByTagName method returns all child elements with a given tag name.
+Implement your version of this as a function that takes a node and a string (the tag name) as arguments and returns 
+an array containing all descendant element nodes with the given tag name. Your function should go through the document itself. 
+It may not use a method like querySelectorAll to do the work.*/
+
+//Solution
+
+function byTagName(node, tagName) {
+  let elements = [];
+
+  function parseNodes(node) {
+    if (node.nodeType === Node.ELEMENT_NODE) {
+      if (node.nodeName.toLowerCase() === tagName.toLowerCase()) {
+        elements.push(node);
+      }
+      for (let child of node.childNodes) {
+        parseNodes(child);
+      }
+    }
+  }
+
+  parseNodes(node);
+  return elements;
+}
+console.log(byTagName(document.body, "h1").length);
+  // → 1
+  console.log(byTagName(document.body, "span").length);
+  // → 3
+  let para = document.querySelector("p");
+  console.log(byTagName(para, "span").length);
+  // → 2
+
+/* Q3: 

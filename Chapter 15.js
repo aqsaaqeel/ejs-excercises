@@ -7,5 +7,33 @@ In this case, exploding means that it is replaced with an 💥 emoji, and the ev
 (so that you can’t inflate or deflate the explosion). */
 
 //Solution
+<style>
+  #balloon {
+    width: 50px; /* Initial width */
+    height: 50px; /* Initial height */
+  }
+</style>
+<p id="balloon">🎈</p>
+
+<script>
+  // Your code here
+  let balloon = document.querySelector("p");
+  document.addEventListener("keydown", function(e) {
+    e.preventDefault();
+    let currentSize = parseInt(window.getComputedStyle(balloon).fontSize); 
+    if (isNaN(currentSize)) {
+      currentSize = 50;
+    }
+    if (e.key == "ArrowUp") {
+      console.log(currentSize);
+      balloon.style.fontSize = (currentSize + 100) + "px";
+    }
+    if (currentSize >= 200) {
+      console.log("blast");
+      balloon.textContent = "💥"; // Replace balloon with explosion emoji
+    }
+  });
+</script>
+
 
 

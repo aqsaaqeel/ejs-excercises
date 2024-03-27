@@ -34,6 +34,11 @@ In this case, exploding means that it is replaced with an 💥 emoji, and the ev
     }
   });
 </script>
+/* Q:2 implement a mouse trail. Use absolutely positioned <div> elements with a fixed size and background color.
+Create a bunch of such elements and, when the mouse moves, display them in the wake of the mouse pointer.*/
+
+//Solution
+
 
 
 

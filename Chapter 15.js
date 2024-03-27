@@ -38,7 +38,42 @@ In this case, exploding means that it is replaced with an 💥 emoji, and the ev
 Create a bunch of such elements and, when the mouse moves, display them in the wake of the mouse pointer.*/
 
 //Solution
+<style>
+   .trail { 
+    position: absolute;
+    height: 6px; width: 6px;
+    border-radius: 3px;
+    background: teal;
+  }
+  body {
+    height: 300px;
+  }
+.main-container{
+  width: 100%;
+  height: 100vh;
+  background-color: green;
+}
+</style>
+<div class="main-container">
 
+</div>
+<script>
+  const container = document.querySelector(".main-container");
+
+container.addEventListener("mousemove", function(){
+  const newElement = document.createElement("div");
+  newElement.textContent = "😊";
+  newElement.classList.add("trail");
+  container.appendChild(newElement);
+  
+  const mouseX = event.clientX;
+  const mouseY = event.clientY;
+  
+  newElement.style.left = mouseX + "px";
+  newElement.style.top = mouseY + "px";
+});
+  
+</script>
 
 
 
